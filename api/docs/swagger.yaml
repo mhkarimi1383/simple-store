@@ -1,0 +1,57 @@
+basePath: /
+info:
+  contact:
+    email: info@karimi.dev
+  description: This is a simple api for storing files.
+  title: Simple Store
+  version: "1.0"
+paths:
+  /{dir}/{filename}:
+    get:
+      description: Upload file
+      operationId: file.download
+      parameters:
+      - description: directory for file
+        in: path
+        name: dir
+        required: true
+        type: string
+      - description: name for file
+        in: path
+        name: filename
+        required: true
+        type: string
+      responses:
+        "200":
+          description: ok
+          schema:
+            type: string
+      summary: Download file
+    put:
+      consumes:
+      - multipart/form-data
+      description: Upload file
+      operationId: file.upload
+      parameters:
+      - description: file to upload
+        in: formData
+        name: data
+        required: true
+        type: file
+      - description: directory for file
+        in: path
+        name: dir
+        required: true
+        type: string
+      - description: name for file
+        in: path
+        name: filename
+        required: true
+        type: string
+      responses:
+        "200":
+          description: ok
+          schema:
+            type: string
+      summary: Upload file
+swagger: "2.0"
