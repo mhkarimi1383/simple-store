@@ -14,8 +14,12 @@ Made to make your work easier as for saving files.
 ## Usage
 
 run project with `--help` option
+
 All the flags can be set using Environment Variables (if you prefer) Here is the naming convention for them
+
 All of them are starting with `SS_` and the Option (replace `-` with `_`) and make it Uppercase
+
+Also, prometheus exporter will start at the same address in `/metrics` address
 
 ## Development
 
