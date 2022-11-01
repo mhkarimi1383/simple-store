@@ -21,6 +21,8 @@ All of them are starting with `SS_` and the Option (replace `-` with `_`) and ma
 
 Also, prometheus exporter will start at the same address in `/metrics` address
 
+and swagger will start at `/swagger` address
+
 ## Development
 
 ### Swagger

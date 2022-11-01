@@ -27,6 +27,9 @@ func Serve(listenAddress string) {
 	e.PUT("/:dir/:filename", handlers.UploadFile)
 	e.GET("/:dir/:filename", handlers.DownloadFile)
 	e.GET("/swagger/*", echoSwagger.WrapHandler)
+	e.GET("/swagger", func(c echo.Context) error {
+		return c.Redirect(301, "/swagger/")
+	})
 
 	// Start server
 	e.Logger.Fatal(e.Start(listenAddress))
