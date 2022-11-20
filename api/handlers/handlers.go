@@ -1,17 +1,21 @@
 package handlers
 
 import (
+	"net/http"
+	"net/url"
+
 	"github.com/labstack/echo/v4"
 	_ "github.com/mhkarimi1383/simple-store/api/docs"
 	"github.com/mhkarimi1383/simple-store/internal/config"
+	"github.com/mhkarimi1383/simple-store/internal/filemanager"
 	"github.com/mhkarimi1383/simple-store/types"
-	"io"
-	"net/http"
-	"net/url"
-	"os"
 )
 
 var cfg types.Config
+
+func init() {
+	cfg = config.GetConfig()
+}
 
 // UploadFile
 // @Summary Upload file
@@ -24,17 +28,21 @@ var cfg types.Config
 // @Success 200 {string} string "ok"
 // @Router /{dir}/{filename} [put]
 func UploadFile(c echo.Context) error {
-	if (cfg == types.Config{}) {
-		cfg = config.GetConfig()
-	}
 	dir, err := url.QueryUnescape(c.Param("dir"))
 	if err != nil {
-		return err
+		return c.JSON(http.StatusBadRequest, types.HttpResponse{
+			Error:   true,
+			Message: "unable to unscape dir parameter",
+			Details: &[]string{err.Error()},
+		})
 	}
-	dir = cfg.BasePath + "/" + dir
 	filename, err := url.QueryUnescape(c.Param("filename"))
 	if err != nil {
-		return err
+		return c.JSON(http.StatusBadRequest, types.HttpResponse{
+			Error:   true,
+			Message: "unable to unscape filename parameter",
+			Details: &[]string{err.Error()},
+		})
 	}
 
 	file, err := c.FormFile("data")
@@ -44,25 +52,23 @@ func UploadFile(c echo.Context) error {
 
 	src, err := file.Open()
 	if err != nil {
-		return err
+		return c.JSON(http.StatusInternalServerError, types.HttpResponse{
+			Error:   true,
+			Message: "unable to open given file",
+			Details: &[]string{err.Error()},
+		})
 	}
-	defer src.Close()
-
-	err = os.MkdirAll(dir, os.ModePerm)
+	err = filemanager.SaveFile(dir, filename, src)
 	if err != nil {
-		return err
+		return c.JSON(http.StatusInternalServerError, types.HttpResponse{
+			Error:   true,
+			Message: "unable to save given file",
+			Details: &[]string{err.Error()},
+		})
 	}
-
-	dst, err := os.Create(dir + "/" + filename)
-	if err != nil {
-		return err
-	}
-	defer dst.Close()
-	if _, err = io.Copy(dst, src); err != nil {
-		return err
-	}
-	return c.JSON(http.StatusOK, map[string]string{
-		"message": "File saved ;)",
+	return c.JSON(http.StatusCreated, types.HttpResponse{
+		Error:   false,
+		Message: "file saved",
 	})
 }
 
@@ -75,9 +81,6 @@ func UploadFile(c echo.Context) error {
 // @Success 200 {string} string "ok"
 // @Router /{dir}/{filename} [get]
 func DownloadFile(c echo.Context) error {
-	if (cfg == types.Config{}) {
-		cfg = config.GetConfig()
-	}
 	dir, err := url.QueryUnescape(c.Param("dir"))
 	if err != nil {
 		return err
