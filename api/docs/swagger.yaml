@@ -7,6 +7,26 @@ info:
   version: "1.0"
 paths:
   /{dir}/{filename}:
+    delete:
+      description: UploaDeleted file
+      operationId: file.delete
+      parameters:
+      - description: directory for file
+        in: path
+        name: dir
+        required: true
+        type: string
+      - description: name for file
+        in: path
+        name: filename
+        required: true
+        type: string
+      responses:
+        "200":
+          description: ok
+          schema:
+            type: string
+      summary: Delete file
     get:
       description: Upload file
       operationId: file.download

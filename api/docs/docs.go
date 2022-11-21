@@ -86,6 +86,35 @@ const docTemplate = `{
                         }
                     }
                 }
+            },
+            "delete": {
+                "description": "UploaDeleted file",
+                "summary": "Delete file",
+                "operationId": "file.delete",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "directory for file",
+                        "name": "dir",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "name for file",
+                        "name": "filename",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
             }
         }
     }

@@ -109,3 +109,42 @@ func DownloadFile(c echo.Context) error {
 	}
 	return c.Stream(http.StatusOK, mtype.String(), reader)
 }
+
+// DeleteFile
+// @Summary Delete file
+// @Description UploaDeleted file
+// @ID file.delete
+// @Param   dir path string true  "directory for file"
+// @Param   filename path string true  "name for file"
+// @Success 200 {string} string "ok"
+// @Router /{dir}/{filename} [delete]
+func DeleteFile(c echo.Context) error {
+	dir, err := url.QueryUnescape(c.Param("dir"))
+	if err != nil {
+		return c.JSON(http.StatusBadRequest, types.HttpResponse{
+			Error:   true,
+			Message: "unable to unscape dir parameter",
+			Details: &[]string{err.Error()},
+		})
+	}
+	filename, err := url.QueryUnescape(c.Param("filename"))
+	if err != nil {
+		return c.JSON(http.StatusBadRequest, types.HttpResponse{
+			Error:   true,
+			Message: "unable to unscape filename parameter",
+			Details: &[]string{err.Error()},
+		})
+	}
+	err = filemanager.RemoveFile(dir, filename)
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, types.HttpResponse{
+			Error:   true,
+			Message: "unable to remove given file",
+			Details: &[]string{err.Error()},
+		})
+	}
+	return c.JSON(http.StatusOK, types.HttpResponse{
+		Error:   false,
+		Message: "file removed",
+	})
+}

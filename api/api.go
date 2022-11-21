@@ -26,6 +26,7 @@ func Serve(listenAddress string) {
 	// Routes
 	e.PUT("/:dir/:filename", handlers.UploadFile)
 	e.GET("/:dir/:filename", handlers.DownloadFile)
+	e.DELETE("/:dir/:filename", handlers.DeleteFile)
 	e.GET("/swagger/*", echoSwagger.WrapHandler)
 	e.GET("/swagger", func(c echo.Context) error {
 		return c.Redirect(301, "/swagger/")
