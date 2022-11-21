@@ -3,6 +3,7 @@ package types
 type Config struct {
 	ListenAddress string
 	BasePath      string
+	EnableSwagger bool
 }
 
 type HttpResponse struct {

@@ -13,7 +13,7 @@ import (
 // @description This is a simple api for storing files.
 // @contact.email info@karimi.dev
 // @BasePath /
-func Serve(listenAddress string) {
+func Serve(listenAddress string, enableSwagger bool) {
 	// Echo instance
 	e := echo.New()
 
@@ -27,10 +27,12 @@ func Serve(listenAddress string) {
 	e.PUT("/:dir/:filename", handlers.UploadFile)
 	e.GET("/:dir/:filename", handlers.DownloadFile)
 	e.DELETE("/:dir/:filename", handlers.DeleteFile)
-	e.GET("/swagger/*", echoSwagger.WrapHandler)
-	e.GET("/swagger", func(c echo.Context) error {
-		return c.Redirect(301, "/swagger/")
-	})
+	if enableSwagger {
+		e.GET("/swagger/*", echoSwagger.WrapHandler)
+		e.GET("/swagger", func(c echo.Context) error {
+			return c.Redirect(301, "/swagger/")
+		})
+	}
 
 	// Start server
 	e.Logger.Fatal(e.Start(listenAddress))

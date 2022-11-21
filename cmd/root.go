@@ -36,6 +36,7 @@ var cfg types.Config
 func init() {
 	rootCmd.PersistentFlags().StringVar(&cfg.ListenAddress, "listen-address", "127.0.0.1:8080", "Address:Port combination used to serve API")
 	rootCmd.PersistentFlags().StringVar(&cfg.BasePath, "base-path", "/data", "Path to use for saving files")
+	rootCmd.PersistentFlags().BoolVar(&cfg.EnableSwagger, "enable-swagger", false, "Enable swagger or not? (Do not use it in production.!)")
 }
 
 func start(_ *cobra.Command, _ []string) {
@@ -44,5 +45,5 @@ func start(_ *cobra.Command, _ []string) {
 	pathhelper.CreatePath(cfg.BasePath)
 	log.Infoln("Base path is ready, Let's GoOoOoOo")
 	config.SetConfig(&cfg)
-	api.Serve(cfg.ListenAddress)
+	api.Serve(cfg.ListenAddress, cfg.EnableSwagger)
 }
