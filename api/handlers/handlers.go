@@ -7,16 +7,9 @@ import (
 	"github.com/gabriel-vasile/mimetype"
 	"github.com/labstack/echo/v4"
 	_ "github.com/mhkarimi1383/simple-store/api/docs"
-	"github.com/mhkarimi1383/simple-store/internal/config"
 	"github.com/mhkarimi1383/simple-store/internal/filemanager"
 	"github.com/mhkarimi1383/simple-store/types"
 )
-
-var cfg types.Config
-
-func init() {
-	cfg = config.GetConfig()
-}
 
 // UploadFile
 // @Summary Upload file
