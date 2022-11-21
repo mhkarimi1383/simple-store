@@ -37,6 +37,8 @@ func RemoveFile() error {
 	return nil
 }
 
-func GetFile() error {
-	return nil
+func GetFile(dir, filename string) (io.Reader, error) {
+	fullPath := fmt.Sprintf("%v/%v", cfg.BasePath, dir)
+	fullFilename := fmt.Sprintf("%v/%v", fullPath, filename)
+	return os.Open(fullFilename)
 }
