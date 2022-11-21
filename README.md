@@ -29,7 +29,7 @@ and swagger will start at `/swagger` address
 
 After making changes in api run the command below to generate openapi spec
 
-> make sure swaggo is installed
+> make sure swaggo is installed `go install github.com/swaggo/swag/cmd/swag@latest`
 
 ```shell
 cd api
