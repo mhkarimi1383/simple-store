@@ -4,6 +4,7 @@ type Config struct {
 	ListenAddress string
 	BasePath      string
 	EnableSwagger bool
+	ChunkSize     int64
 }
 
 type HttpResponse struct {

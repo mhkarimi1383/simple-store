@@ -10,6 +10,7 @@ Made to make your work easier as for saving files.
 - [github.com/spf13/cobra](https://github.com/spf13/cobra)
 - [github.com/spf13/pflag](https://github.com/spf13/cobra)
 - [github.com/swaggo/echo-swagger](https://github.com/swaggo/echo-swagger)
+- [github.com/etcd-io/bbolt](https://github.com/etcd-io/bbolt)
 
 ## Usage
 
