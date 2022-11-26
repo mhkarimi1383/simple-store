@@ -27,6 +27,7 @@ func SaveFile(dir, filename string, source io.Reader) error {
 	if err != nil {
 		return err
 	}
+	defer dst.Close()
 	if _, err = io.Copy(dst, source); err != nil {
 		return err
 	}

@@ -14,7 +14,6 @@ import (
 )
 
 var (
-	// rootCmd represents the base command when called without any subcommands
 	rootCmd = &cobra.Command{
 		Use:   "simple-store",
 		Short: "Simply Store your file",
