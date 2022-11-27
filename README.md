@@ -8,6 +8,7 @@ Made to make your work easier as for saving files.
 - [WIP] Chunking file (in one server)
 - [ ] Replication (between servers)
 - [ ] Centeral database for saving server stats for replication
+- [ ] Dockerizing and adding installaion methods
 
 ## Made out of
 
