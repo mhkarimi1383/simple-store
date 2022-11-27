@@ -29,13 +29,14 @@ func init() {
 func SaveFile(dir, filename string, source io.Reader) error {
 	fullPath := fmt.Sprintf("%v/%v", cfg.BasePath, dir)
 	internalFilename := fmt.Sprintf("%v/%v", dir, filename)
+	fullFilename := fmt.Sprintf("%v/%v", fullPath, filename)
 	err := pathhelper.CreatePath(fullPath)
 	if err != nil {
 		return err
 	}
 	chunckID := 0
 	for {
-		dstFileName := fmt.Sprintf("%v__%v", internalFilename, chunckID)
+		dstFileName := fmt.Sprintf("%v__%v", fullFilename, chunckID)
 		if _, err := os.Stat(dstFileName); !os.IsNotExist(err) {
 			return err
 		}
