@@ -3,6 +3,12 @@
 Simply Store your file
 Made to make your work easier as for saving files.
 
+## Features
+
+- [WIP] Chunking file (in one server)
+- [ ] Replication (between servers)
+- [ ] Centeral database for saving server stats for replication
+
 ## Made out of
 
 - [github.com/labstack/echo](https://github.com/labstack/echo) 
