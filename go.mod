@@ -10,9 +10,9 @@ require (
 	github.com/spf13/pflag v1.0.5
 	github.com/swaggo/echo-swagger v1.3.5
 	github.com/swaggo/swag v1.8.7
+	go.etcd.io/bbolt v1.3.6
 )
 
-require go.etcd.io/bbolt v1.3.6 // indirect
 
 require (
 	github.com/KyleBanks/depth v1.2.1 // indirect
