@@ -5,7 +5,7 @@ Made to make your work easier as for saving files.
 
 ## Features
 
-- [WIP] Chunking file (in one server)
+- [x] Chunking file (in one server) [Not tested yet]
 - [ ] Replication (between servers)
 - [ ] Centeral database for saving server stats for replication
 - [ ] Dockerizing and adding installation methods

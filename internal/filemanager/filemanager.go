@@ -1,8 +1,10 @@
 package filemanager
 
 import (
+	"bytes"
 	"fmt"
 	"io"
+	"io/ioutil"
 	"os"
 
 	"github.com/mhkarimi1383/simple-store/internal/config"
@@ -34,7 +36,7 @@ func SaveFile(dir, filename string, source io.Reader) error {
 	if err != nil {
 		return err
 	}
-	chunckID := 0
+	var chunckID int64 = 0
 	for {
 		dstFileName := fmt.Sprintf("%v__%v", fullFilename, chunckID)
 		if _, err := os.Stat(dstFileName); !os.IsNotExist(err) {
@@ -53,7 +55,7 @@ func SaveFile(dir, filename string, source io.Reader) error {
 				if err != nil {
 					return err
 				}
-				return b.Put([]byte(dstFileName), typeconverters.Int64ToBytes(written))
+				return b.Put(typeconverters.Int64ToBytes(chunckID), typeconverters.Int64ToBytes(written))
 			})
 			if err != nil {
 				return err
@@ -70,13 +72,32 @@ func SaveFile(dir, filename string, source io.Reader) error {
 }
 
 func RemoveFile(dir, filename string) error {
-	fullPath := fmt.Sprintf("%v/%v", cfg.BasePath, dir)
-	fullFilename := fmt.Sprintf("%v/%v", fullPath, filename)
-	return os.Remove(fullFilename)
+	internalFilename := fmt.Sprintf("%v/%v", dir, filename)
+	return db.View(func(tx *bolt.Tx) error {
+		b := tx.Bucket([]byte(internalFilename))
+		return b.ForEach(func(k, _ []byte) error {
+			err := os.Remove(fmt.Sprintf("%v/%v__%v", cfg.BasePath, internalFilename, string(k)))
+			if err != nil {
+				return err
+			}
+			return nil
+		})
+	})
 }
 
 func GetFile(dir, filename string) (io.Reader, error) {
-	fullPath := fmt.Sprintf("%v/%v", cfg.BasePath, dir)
-	fullFilename := fmt.Sprintf("%v/%v", fullPath, filename)
-	return os.Open(fullFilename)
+	internalFilename := fmt.Sprintf("%v/%v", dir, filename)
+	content := []byte{}
+	err := db.View(func(tx *bolt.Tx) error {
+		b := tx.Bucket([]byte(internalFilename))
+		return b.ForEach(func(k, _ []byte) error {
+			tmpContent, err := ioutil.ReadFile(fmt.Sprintf("%v/%v__%v", cfg.BasePath, internalFilename, string(k)))
+			if err != nil {
+				return err
+			}
+			content = append(content, tmpContent...)
+			return nil
+		})
+	})
+	return bytes.NewReader(content), err
 }
