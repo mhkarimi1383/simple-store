@@ -46,7 +46,8 @@ func SaveFile(dir, filename string, source io.Reader) error {
 		}
 		defer dst.Close()
 		written, err := io.CopyN(dst, source, cfg.ChunkSize)
-		if err == io.EOF {
+		if err == io.EOF || err == nil {
+			fileFinished := err == io.EOF
 			err := db.Update(func(tx *bolt.Tx) error {
 				b, err := tx.CreateBucket([]byte(internalFilename))
 				if err != nil {
@@ -57,11 +58,13 @@ func SaveFile(dir, filename string, source io.Reader) error {
 			if err != nil {
 				return err
 			}
-			return nil
+			if fileFinished {
+				return nil
+			} else {
+				chunckID++
+			}
 		} else if err != nil {
 			return err
-		} else {
-			chunckID++
 		}
 	}
 }
