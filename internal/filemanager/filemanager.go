@@ -82,13 +82,18 @@ func RemoveFile(dir, filename string) error {
 	internalFilename := fmt.Sprintf("%v/%v", dir, filename)
 	return db.View(func(tx *bolt.Tx) error {
 		b := tx.Bucket([]byte(internalFilename))
-		return b.ForEach(func(k, _ []byte) error {
-			err := os.Remove(fmt.Sprintf("%v/%v__%v", cfg.BasePath, internalFilename, string(k)))
+		err := b.ForEach(func(k, _ []byte) error {
+			chunckID, _ := typeconverters.BytesToInt64(k)
+			err := os.Remove(fmt.Sprintf("%v/%v__%v", cfg.BasePath, internalFilename, chunckID))
 			if err != nil {
 				return err
 			}
 			return nil
 		})
+		if err != nil {
+			return err
+		}
+		return b.DeleteBucket([]byte(internalFilename))
 	})
 }
 
