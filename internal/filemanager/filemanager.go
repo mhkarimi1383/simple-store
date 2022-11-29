@@ -19,16 +19,20 @@ var (
 	db  *bolt.DB
 )
 
-func init() {
-	cfg = config.GetConfig()
-	var err error // No new variable should be initalized there
-	db, err = bolt.Open(fmt.Sprintf("%v/store.db", cfg.BasePath), 0666, nil)
-	if err != nil {
-		panic(err)
+// initDB checks if db is nil just initialize it
+func initDB() {
+	if db == nil {
+		cfg = config.GetConfig()
+		var err error // No new variable should be initalized there
+		db, err = bolt.Open(fmt.Sprintf("%v/store.db", cfg.BasePath), 0666, nil)
+		if err != nil {
+			panic(err)
+		}
 	}
 }
 
 func SaveFile(dir, filename string, source io.Reader) error {
+	initDB()
 	fullPath := fmt.Sprintf("%v/%v", cfg.BasePath, dir)
 	internalFilename := fmt.Sprintf("%v/%v", dir, filename)
 	fullFilename := fmt.Sprintf("%v/%v", fullPath, filename)
@@ -52,7 +56,9 @@ func SaveFile(dir, filename string, source io.Reader) error {
 			fileFinished := err == io.EOF
 			err := db.Update(func(tx *bolt.Tx) error {
 				b, err := tx.CreateBucket([]byte(internalFilename))
-				if err != nil {
+				if err == bolt.ErrBucketExists {
+					b = tx.Bucket([]byte(internalFilename))
+				} else if err != nil {
 					return err
 				}
 				return b.Put(typeconverters.Int64ToBytes(chunckID), typeconverters.Int64ToBytes(written))
@@ -72,6 +78,7 @@ func SaveFile(dir, filename string, source io.Reader) error {
 }
 
 func RemoveFile(dir, filename string) error {
+	initDB()
 	internalFilename := fmt.Sprintf("%v/%v", dir, filename)
 	return db.View(func(tx *bolt.Tx) error {
 		b := tx.Bucket([]byte(internalFilename))
@@ -85,13 +92,15 @@ func RemoveFile(dir, filename string) error {
 	})
 }
 
-func GetFile(dir, filename string) (io.Reader, error) {
+func GetFile(dir, filename string) (*bytes.Reader, error) {
+	initDB()
 	internalFilename := fmt.Sprintf("%v/%v", dir, filename)
 	content := []byte{}
 	err := db.View(func(tx *bolt.Tx) error {
 		b := tx.Bucket([]byte(internalFilename))
 		return b.ForEach(func(k, _ []byte) error {
-			tmpContent, err := ioutil.ReadFile(fmt.Sprintf("%v/%v__%v", cfg.BasePath, internalFilename, string(k)))
+			chunckID, _ := typeconverters.BytesToInt64(k)
+			tmpContent, err := ioutil.ReadFile(fmt.Sprintf("%v/%v__%v", cfg.BasePath, internalFilename, chunckID))
 			if err != nil {
 				return err
 			}

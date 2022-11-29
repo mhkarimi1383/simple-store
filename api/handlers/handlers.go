@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"io"
 	"net/http"
 	"net/url"
 
@@ -100,6 +101,14 @@ func DownloadFile(c echo.Context) error {
 		})
 	}
 	mtype, err := mimetype.DetectReader(reader)
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, types.HttpResponse{
+			Error:   true,
+			Message: "unable to detect mime type",
+			Details: &[]string{err.Error()},
+		})
+	}
+	_, err = reader.Seek(0, io.SeekStart)
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, types.HttpResponse{
 			Error:   true,
