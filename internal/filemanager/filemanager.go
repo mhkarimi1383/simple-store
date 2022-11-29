@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"os"
 
 	"github.com/mhkarimi1383/simple-store/internal/config"
@@ -105,7 +104,7 @@ func GetFile(dir, filename string) (*bytes.Reader, error) {
 		b := tx.Bucket([]byte(internalFilename))
 		return b.ForEach(func(k, _ []byte) error {
 			chunckID, _ := typeconverters.BytesToInt64(k)
-			tmpContent, err := ioutil.ReadFile(fmt.Sprintf("%v/%v__%v", cfg.BasePath, internalFilename, chunckID))
+			tmpContent, err := os.ReadFile(fmt.Sprintf("%v/%v__%v", cfg.BasePath, internalFilename, chunckID))
 			if err != nil {
 				return err
 			}
