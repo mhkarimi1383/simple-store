@@ -5,14 +5,14 @@ Made to make your work easier as for saving files.
 
 ## Features
 
-- [x] Chunking file (in one server) [Not tested yet]
+- [x] Chunking file (in one server)
 - [ ] Replication (between servers)
 - [ ] Centeral database for saving server stats for replication
 - [ ] Dockerizing and adding installation methods
 
 ## Made out of
 
-- [github.com/labstack/echo](https://github.com/labstack/echo) 
+- [github.com/labstack/echo](https://github.com/labstack/echo)
 - [github.com/sirupsen/logrus](https://github.com/sirupsen/logrus)
 - [github.com/spf13/cobra](https://github.com/spf13/cobra)
 - [github.com/spf13/pflag](https://github.com/spf13/cobra)
