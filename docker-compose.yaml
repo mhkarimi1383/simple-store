@@ -1,0 +1,15 @@
+version: "3.3"
+
+services:
+  simple-store:
+    build:
+      dockerfile: Dockerfile
+    environment:
+      SS_CHUNK_SIZE: "2048"
+      # SS_ENABLE_SWAGGER: "true" # Not for production
+      SS_BASE_PATH: /data
+      SS_LISTEN_ADDRESS: 0.0.0.0:8000
+    ports:
+      - 8000:8000
+    volumes:
+      - ./data:/data
