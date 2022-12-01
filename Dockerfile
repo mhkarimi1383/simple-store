@@ -1,5 +1,5 @@
 ## Build
-FROM docker.karimi.dev/library/golang:1.19-bulseye AS build
+FROM docker.karimi.dev/library/golang:1.19-bullseye AS build
 
 WORKDIR /app
 
