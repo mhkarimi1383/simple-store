@@ -1,6 +1,9 @@
-name: publish
+name: publish-letest
 
-on: [push]
+on:
+  push:
+    branches:
+      - "master"
 
 jobs:
   publish-docker-image:

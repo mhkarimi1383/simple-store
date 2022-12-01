@@ -1,9 +1,6 @@
-name: publish-stable
+name: publish-pr
 
-on:
-  push:
-    tags:
-      - "*"
+on: [pull_request]
 
 jobs:
   publish-docker-image:
@@ -21,6 +18,5 @@ jobs:
 
       - name: Build & Push Docker image
         run: |
-          docker build . --tag ghcr.io/mhkarimi1383/simple-store:stable --tag ghcr.io/mhkarimi1383/simple-store:${{ github.ref_name }}
-          docker push ghcr.io/mhkarimi1383/simple-store:stable
-          docker push ghcr.io/mhkarimi1383/simple-store:${{ github.ref_name }}
+          docker build . --tag ghcr.io/mhkarimi1383/simple-store:${{ github.event.pull_request.number }}
+          docker push ghcr.io/mhkarimi1383/simple-store:${{ github.event.pull_request.number }}
