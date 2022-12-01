@@ -1,5 +1,5 @@
 ## Build
-FROM golang:1.19-bulseye AS build
+FROM docker.karimi.dev/library/golang:1.19-bulseye AS build
 
 WORKDIR /app
 
@@ -12,7 +12,7 @@ COPY ./ ./
 RUN go build -o /simple-store
 
 ## Deploy
-FROM gcr.io/distroless/base-debian11
+FROM docker.karimi.dev/gcr.io/distroless/base-debian11
 
 WORKDIR /
 

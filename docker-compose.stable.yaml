@@ -1,0 +1,21 @@
+## This file used to be for local tests
+
+version: "3.3"
+
+services:
+  simple-store:
+    image: ghcr.io/mhkarimi1383/simple-store:stable
+    environment:
+      SS_CHUNK_SIZE: "2048"
+      SS_ENABLE_SWAGGER: "false"
+      SS_BASE_PATH: /data
+      SS_LISTEN_ADDRESS: 0.0.0.0:8000
+    ports:
+      - 8000:8000
+    volumes:
+      - data:/data
+
+volumes:
+  data:
+    driver: local
+    name: simple-store-data
