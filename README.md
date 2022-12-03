@@ -33,6 +33,14 @@ and swagger will start at `/swagger` address (If configured)
 
 ## Installation
 
+## Bare Golang
+
+After installing Golang run the command below
+
+```shell
+go install github.com/mhkarimi1383/simple-store@latest
+```
+
 ### Docker
 
 Docker images are in three categories:
@@ -44,6 +52,22 @@ Docker images are in three categories:
 #### Docker Compose
 
 Also Ready to use Docker Compose files are present here
+
+[docker-compose.local.yaml](./docker-compose.local.yaml) is used for local builds
+
+[docker-compose.stable.yaml](./docker-compose.stable.yaml) is used for production
+
+bring it up by running
+
+```shell
+docker compose up -d -f ./docker-compose.stable.yaml # or ./docker-compose.local.yaml
+```
+
+or if you are running an older version of docker compose (lower then 2)
+
+```shell
+docker-compose up -d -f ./docker-compose.stable.yaml # or ./docker-compose.local.yaml
+```
 
 ## Development
 
