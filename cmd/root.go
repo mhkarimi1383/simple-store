@@ -1,6 +1,3 @@
-/*
-Copyright © 2022 Muhammed Hussein Karimi <info@karimi.dev>
-*/
 package cmd
 
 import (

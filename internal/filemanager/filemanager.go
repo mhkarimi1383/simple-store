@@ -74,9 +74,8 @@ func SaveFile(dir, filename string, source io.Reader) error {
 				}
 				if fileFinished {
 					return nil
-				} else {
-					chunckID++
 				}
+				chunckID++
 			} else {
 				return err
 			}
