@@ -8,11 +8,13 @@ import (
 
 var config *types.Config
 
+// SetConfig sets config for singletone use
 func SetConfig(cfg *types.Config) {
 	cfg.BasePath = strings.TrimSuffix(cfg.BasePath, "/")
 	config = cfg
 }
 
+// GetConfig used to get configuration filled by SetConfig
 func GetConfig() types.Config {
 	return *config
 }
