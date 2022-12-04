@@ -23,6 +23,7 @@ var (
 	cfg types.Config
 )
 
+// Execute this is the main function to start the main process
 func Execute() {
 	if err := flagloader.SetFlagsFromEnv(rootCmd.PersistentFlags(), "SS"); err != nil {
 		log.Fatalln(err)

@@ -30,6 +30,7 @@ func initDB() {
 	}
 }
 
+// SaveFile saves given file from source
 func SaveFile(dir, filename string, source io.Reader) error {
 	initDB()
 	fullPath := fmt.Sprintf("%v/%v", cfg.BasePath, dir)
@@ -83,6 +84,7 @@ func SaveFile(dir, filename string, source io.Reader) error {
 	})
 }
 
+// RemoveFile removes given file
 func RemoveFile(dir, filename string) error {
 	initDB()
 	internalFilename := fmt.Sprintf("%v/%v", dir, filename)
@@ -103,6 +105,7 @@ func RemoveFile(dir, filename string) error {
 	})
 }
 
+// GetFile get file as a Bytes Reader
 func GetFile(dir, filename string) (*bytes.Reader, error) {
 	initDB()
 	internalFilename := fmt.Sprintf("%v/%v", dir, filename)

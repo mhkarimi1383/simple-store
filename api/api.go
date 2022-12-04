@@ -8,6 +8,7 @@ import (
 	echoSwagger "github.com/swaggo/echo-swagger"
 )
 
+// Serve starts http server using echo framework
 // @title Simple Store
 // @version 1.0
 // @description This is a simple api for storing files.
