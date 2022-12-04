@@ -40,7 +40,7 @@ func SaveFile(dir, filename string, source io.Reader) error {
 	if err != nil {
 		return err
 	}
-	var chunckID int64 = 0
+	var chunckID int64
 	return db.Batch(func(tx *bolt.Tx) error {
 		b, err := tx.CreateBucket([]byte(internalFilename))
 		if err == bolt.ErrBucketExists {
@@ -77,7 +77,7 @@ func SaveFile(dir, filename string, source io.Reader) error {
 				} else {
 					chunckID++
 				}
-			} else if err != nil {
+			} else {
 				return err
 			}
 		}
