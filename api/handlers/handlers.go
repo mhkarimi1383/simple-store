@@ -12,7 +12,7 @@ import (
 	"github.com/mhkarimi1383/simple-store/types"
 )
 
-// UploadFile
+// UploadFile simply uploads file
 // @Summary Upload file
 // @Description Upload file
 // @ID file.upload
@@ -67,7 +67,7 @@ func UploadFile(c echo.Context) error {
 	})
 }
 
-// DownloadFile
+// DownloadFile simply downloads file
 // @Summary Download file
 // @Description Upload file
 // @ID file.download
@@ -119,7 +119,7 @@ func DownloadFile(c echo.Context) error {
 	return c.Stream(http.StatusOK, mtype.String(), reader)
 }
 
-// DeleteFile
+// DeleteFile simply delete a file
 // @Summary Delete file
 // @Description UploaDeleted file
 // @ID file.delete
