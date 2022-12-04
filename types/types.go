@@ -1,6 +1,6 @@
 package types
 
-// used to get Store configurations
+// Config used to get Store configurations
 type Config struct {
 	ListenAddress string
 	BasePath      string
@@ -8,8 +8,8 @@ type Config struct {
 	ChunkSize     int64
 }
 
-// the base type for returning data to client
-type HttpResponse struct {
+// HTTPResponse the base type for returning data to client
+type HTTPResponse struct {
 	Error   bool      `json:"error"`
 	Message string    `json:"message"`
 	Details *[]string `json:"details"`

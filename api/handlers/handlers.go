@@ -25,7 +25,7 @@ import (
 func UploadFile(c echo.Context) error {
 	dir, err := url.QueryUnescape(c.Param("dir"))
 	if err != nil {
-		return c.JSON(http.StatusBadRequest, types.HttpResponse{
+		return c.JSON(http.StatusBadRequest, types.HTTPResponse{
 			Error:   true,
 			Message: "unable to unscape dir parameter",
 			Details: &[]string{err.Error()},
@@ -33,7 +33,7 @@ func UploadFile(c echo.Context) error {
 	}
 	filename, err := url.QueryUnescape(c.Param("filename"))
 	if err != nil {
-		return c.JSON(http.StatusBadRequest, types.HttpResponse{
+		return c.JSON(http.StatusBadRequest, types.HTTPResponse{
 			Error:   true,
 			Message: "unable to unscape filename parameter",
 			Details: &[]string{err.Error()},
@@ -47,7 +47,7 @@ func UploadFile(c echo.Context) error {
 
 	src, err := file.Open()
 	if err != nil {
-		return c.JSON(http.StatusInternalServerError, types.HttpResponse{
+		return c.JSON(http.StatusInternalServerError, types.HTTPResponse{
 			Error:   true,
 			Message: "unable to open given file",
 			Details: &[]string{err.Error()},
@@ -55,13 +55,13 @@ func UploadFile(c echo.Context) error {
 	}
 	err = filemanager.SaveFile(dir, filename, src)
 	if err != nil {
-		return c.JSON(http.StatusInternalServerError, types.HttpResponse{
+		return c.JSON(http.StatusInternalServerError, types.HTTPResponse{
 			Error:   true,
 			Message: "unable to save given file",
 			Details: &[]string{err.Error()},
 		})
 	}
-	return c.JSON(http.StatusCreated, types.HttpResponse{
+	return c.JSON(http.StatusCreated, types.HTTPResponse{
 		Error:   false,
 		Message: "file saved",
 	})
@@ -78,7 +78,7 @@ func UploadFile(c echo.Context) error {
 func DownloadFile(c echo.Context) error {
 	dir, err := url.QueryUnescape(c.Param("dir"))
 	if err != nil {
-		return c.JSON(http.StatusBadRequest, types.HttpResponse{
+		return c.JSON(http.StatusBadRequest, types.HTTPResponse{
 			Error:   true,
 			Message: "unable to unscape dir parameter",
 			Details: &[]string{err.Error()},
@@ -86,7 +86,7 @@ func DownloadFile(c echo.Context) error {
 	}
 	filename, err := url.QueryUnescape(c.Param("filename"))
 	if err != nil {
-		return c.JSON(http.StatusBadRequest, types.HttpResponse{
+		return c.JSON(http.StatusBadRequest, types.HTTPResponse{
 			Error:   true,
 			Message: "unable to unscape filename parameter",
 			Details: &[]string{err.Error()},
@@ -94,7 +94,7 @@ func DownloadFile(c echo.Context) error {
 	}
 	reader, err := filemanager.GetFile(dir, filename)
 	if err != nil {
-		return c.JSON(http.StatusInternalServerError, types.HttpResponse{
+		return c.JSON(http.StatusInternalServerError, types.HTTPResponse{
 			Error:   true,
 			Message: "unable to read given file",
 			Details: &[]string{err.Error()},
@@ -102,7 +102,7 @@ func DownloadFile(c echo.Context) error {
 	}
 	mtype, err := mimetype.DetectReader(reader)
 	if err != nil {
-		return c.JSON(http.StatusInternalServerError, types.HttpResponse{
+		return c.JSON(http.StatusInternalServerError, types.HTTPResponse{
 			Error:   true,
 			Message: "unable to detect mime type",
 			Details: &[]string{err.Error()},
@@ -110,7 +110,7 @@ func DownloadFile(c echo.Context) error {
 	}
 	_, err = reader.Seek(0, io.SeekStart)
 	if err != nil {
-		return c.JSON(http.StatusInternalServerError, types.HttpResponse{
+		return c.JSON(http.StatusInternalServerError, types.HTTPResponse{
 			Error:   true,
 			Message: "unable to detect mime type",
 			Details: &[]string{err.Error()},
@@ -130,7 +130,7 @@ func DownloadFile(c echo.Context) error {
 func DeleteFile(c echo.Context) error {
 	dir, err := url.QueryUnescape(c.Param("dir"))
 	if err != nil {
-		return c.JSON(http.StatusBadRequest, types.HttpResponse{
+		return c.JSON(http.StatusBadRequest, types.HTTPResponse{
 			Error:   true,
 			Message: "unable to unscape dir parameter",
 			Details: &[]string{err.Error()},
@@ -138,7 +138,7 @@ func DeleteFile(c echo.Context) error {
 	}
 	filename, err := url.QueryUnescape(c.Param("filename"))
 	if err != nil {
-		return c.JSON(http.StatusBadRequest, types.HttpResponse{
+		return c.JSON(http.StatusBadRequest, types.HTTPResponse{
 			Error:   true,
 			Message: "unable to unscape filename parameter",
 			Details: &[]string{err.Error()},
@@ -146,13 +146,13 @@ func DeleteFile(c echo.Context) error {
 	}
 	err = filemanager.RemoveFile(dir, filename)
 	if err != nil {
-		return c.JSON(http.StatusInternalServerError, types.HttpResponse{
+		return c.JSON(http.StatusInternalServerError, types.HTTPResponse{
 			Error:   true,
 			Message: "unable to remove given file",
 			Details: &[]string{err.Error()},
 		})
 	}
-	return c.JSON(http.StatusOK, types.HttpResponse{
+	return c.JSON(http.StatusOK, types.HTTPResponse{
 		Error:   false,
 		Message: "file removed",
 	})
