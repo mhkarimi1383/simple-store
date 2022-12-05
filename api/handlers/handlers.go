@@ -8,6 +8,8 @@ import (
 
 	"github.com/gabriel-vasile/mimetype"
 	"github.com/labstack/echo/v4"
+
+	// importing api docs for initializing it and make it working
 	_ "github.com/mhkarimi1383/simple-store/api/docs"
 	"github.com/mhkarimi1383/simple-store/internal/filemanager"
 	"github.com/mhkarimi1383/simple-store/types"
