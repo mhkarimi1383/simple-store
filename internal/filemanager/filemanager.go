@@ -1,3 +1,4 @@
+// package filemanager is the centeral package for managing files and database
 package filemanager
 
 import (
