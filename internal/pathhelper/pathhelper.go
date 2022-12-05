@@ -1,3 +1,4 @@
+// Package pathhelper helpers for managing directories and paths are here
 package pathhelper
 
 import (

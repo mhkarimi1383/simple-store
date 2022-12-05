@@ -1,10 +1,12 @@
+// Package flagloader helps us for loading flags from ENV
 package flagloader
 
 import (
 	"fmt"
-	flag "github.com/spf13/pflag"
 	"os"
 	"strings"
+
+	flag "github.com/spf13/pflag"
 )
 
 // SetFlagsFromEnv parses all registered flags in the given flag set,

@@ -1,3 +1,4 @@
+// Package cmd the magic starts from here
 package cmd
 
 import (

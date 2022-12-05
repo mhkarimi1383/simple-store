@@ -1,3 +1,4 @@
+// Package types all of the types used in project are here
 package types
 
 // Config used to get Store configurations

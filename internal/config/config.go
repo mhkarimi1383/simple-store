@@ -1,4 +1,4 @@
-// package config holds a singletone pointer of the configuration
+// Package config holds a singletone pointer of the configuration
 package config
 
 import (
