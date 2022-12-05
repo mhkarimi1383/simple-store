@@ -1,3 +1,2 @@
-engines:
-  markdownlint:
-    enabled: false
+exclude_paths:
+  - "**.md"
