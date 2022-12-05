@@ -33,7 +33,28 @@ and swagger will start at `/swagger` address (If configured)
 
 ## Installation
 
-## Bare Golang
+### From Source
+
+Clone the project and get the requirements by running
+
+```shell
+go mod tidy
+```
+
+run the project by
+
+```shell
+go run . --help
+```
+
+or build it then run it
+
+```shell
+go build .
+./simple-store --help
+```
+
+### Bare Golang
 
 After installing Golang run the command below
 
