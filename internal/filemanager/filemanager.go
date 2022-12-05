@@ -68,7 +68,7 @@ func SaveFile(dir, filename string, source io.Reader) error {
 			defer dst.Close()
 			written, err := io.CopyN(dst, source, cfg.ChunkSize)
 			if err == io.EOF || err == nil {
-				fileFinished := err == io.EOF
+				fileFinished := err == io.EOF // If true written data will be wrong
 				err = b.Put(typeconverters.Int64ToBytes(chunckID), typeconverters.Int64ToBytes(written))
 				if err != nil {
 					return err
