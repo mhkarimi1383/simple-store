@@ -33,10 +33,10 @@ func Execute() {
 }
 
 func init() {
-	rootCmd.PersistentFlags().StringVar(&cfg.ListenAddress, "listen-address", "127.0.0.1:8080", "Address:Port combination used to serve API")
-	rootCmd.PersistentFlags().StringVar(&cfg.BasePath, "base-path", "/data", "Path to use for saving files")
+	rootCmd.PersistentFlags().StringVarP(&cfg.ListenAddress, "listen-address", "l", "127.0.0.1:8080", "Address:Port combination used to serve API")
+	rootCmd.PersistentFlags().StringVarP(&cfg.BasePath, "base-path", "d", "/data", "Path to use for saving files")
 	rootCmd.PersistentFlags().BoolVar(&cfg.EnableSwagger, "enable-swagger", false, "Enable swagger or not? (Do not use it in production.!)")
-	rootCmd.PersistentFlags().Int64Var(&cfg.ChunkSize, "chunk-size", 50, "Size to use for each part for chucking files (In bytes)")
+	rootCmd.PersistentFlags().Int64VarP(&cfg.ChunkSize, "chunk-size", "c", 50, "Size to use for each part for chucking files (In bytes)")
 }
 
 func start(_ *cobra.Command, _ []string) {

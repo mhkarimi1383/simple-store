@@ -2,6 +2,8 @@
 package api
 
 import (
+	"net/http"
+
 	"github.com/labstack/echo-contrib/prometheus"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
@@ -32,7 +34,7 @@ func Serve(listenAddress string, enableSwagger bool) {
 	if enableSwagger {
 		e.GET("/swagger/*", echoSwagger.WrapHandler)
 		e.GET("/swagger", func(c echo.Context) error {
-			return c.Redirect(301, "/swagger/")
+			return c.Redirect(http.StatusPermanentRedirect, "/swagger/")
 		})
 	}
 
