@@ -66,7 +66,7 @@ go install github.com/mhkarimi1383/simple-store@latest
 
 Docker images are in three categories:
 
-1. Stable: Made when we create tags (also each tag will be usabe as docker tag)
+1. Stable: Made when we create tags (also each tag will be usabe as docker tag) [Not Published yet.]
 2. Latest: Made out of last commit on master branch (you can also use commit hashes)
 3. PRs: We make image for each PR to make tests easier (pr-`PR ID`) [this section is not available yet.]
 

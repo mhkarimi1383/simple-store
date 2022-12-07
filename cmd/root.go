@@ -13,10 +13,11 @@ import (
 
 var (
 	rootCmd = &cobra.Command{
-		Use:   "simple-store",
-		Short: "Simply Store your file",
-		Long:  `Made to make your work easier as for saving files.`,
-		Run:   start,
+		Use:     "simple-store",
+		Aliases: []string{"ss"},
+		Short:   "Simply Store your file",
+		Long:    `Made to make your work easier as for saving files.`,
+		Run:     start,
 	}
 	cfg types.Config
 )
