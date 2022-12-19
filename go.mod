@@ -9,7 +9,7 @@ require (
 	github.com/spf13/cobra v1.6.1
 	github.com/spf13/pflag v1.0.5
 	github.com/swaggo/echo-swagger v1.3.5
-	github.com/swaggo/swag v1.8.8
+	github.com/swaggo/swag v1.8.9
 	go.etcd.io/bbolt v1.3.6
 )
 
