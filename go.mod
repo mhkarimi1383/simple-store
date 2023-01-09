@@ -3,7 +3,7 @@ module github.com/mhkarimi1383/simple-store
 go 1.19
 
 require (
-	github.com/labstack/echo-contrib v0.13.0
+	github.com/labstack/echo-contrib v0.13.1
 	github.com/labstack/echo/v4 v4.10.0
 	github.com/sirupsen/logrus v1.9.0
 	github.com/spf13/cobra v1.6.1
