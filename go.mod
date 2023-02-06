@@ -10,7 +10,7 @@ require (
 	github.com/spf13/pflag v1.0.5
 	github.com/swaggo/echo-swagger v1.3.5
 	github.com/swaggo/swag v1.8.10
-	go.etcd.io/bbolt v1.3.6
+	go.etcd.io/bbolt v1.3.7
 )
 
 require (
@@ -42,7 +42,7 @@ require (
 	github.com/valyala/fasttemplate v1.2.2 // indirect
 	golang.org/x/crypto v0.2.0 // indirect
 	golang.org/x/net v0.4.0 // indirect
-	golang.org/x/sys v0.3.0 // indirect
+	golang.org/x/sys v0.4.0 // indirect
 	golang.org/x/text v0.5.0 // indirect
 	golang.org/x/time v0.2.0 // indirect
 	golang.org/x/tools v0.1.12 // indirect
